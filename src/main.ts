@@ -9,7 +9,7 @@ scene.add(group);
 
 const cube1 = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 );
 
 cube1.position.set(-1, 0, 0);
@@ -17,7 +17,7 @@ group.add(cube1);
 
 const cube2 = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+  new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
 );
 
 group.add(cube2);
@@ -45,8 +45,8 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const timeDelta = clock.getElapsedTime();
-  group.rotation.y = timeDelta * Math.PI;
-  group.rotation.x = timeDelta * Math.PI;
+  group.rotation.y = Math.sin(timeDelta) * Math.PI;
+  group.rotation.x = Math.cos(timeDelta) * Math.PI;
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
 };
