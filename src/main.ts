@@ -23,12 +23,18 @@ const cube2 = new THREE.Mesh(
 group.add(cube2);
 cube2.position.set(1, 0, 0);
 
-const sizes = {
-  width: 800,
-  height: 600,
-};
+window.addEventListener('resize', () => {
+  console.log('hi');
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight
+);
 camera.position.set(0, 0, 3);
 scene.add(camera);
 
@@ -38,14 +44,14 @@ const renderer = new THREE.WebGLRenderer({
   canvas,
 });
 
-renderer.setSize(sizes.width, sizes.height);
+renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
 const clock = new THREE.Clock();
 
 const tick = () => {
   const timeDelta = clock.getElapsedTime();
-  group.rotation.y = Math.sin(timeDelta) * Math.PI;
+  group.rotation.y = Math.cos(timeDelta) * Math.PI;
   group.rotation.x = Math.cos(timeDelta) * Math.PI;
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
