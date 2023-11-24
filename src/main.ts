@@ -24,7 +24,6 @@ group.add(cube2);
 cube2.position.set(1, 0, 0);
 
 window.addEventListener('resize', () => {
-  console.log('hi');
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
