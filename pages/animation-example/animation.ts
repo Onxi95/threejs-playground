@@ -3,6 +3,7 @@ import * as THREE from 'three';
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f1729);
 
 const group = new THREE.Group();
 scene.add(group);

@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f1729);
 const cube1 = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
   new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
