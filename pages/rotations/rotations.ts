@@ -1,6 +1,14 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import GUI from 'lil-gui';
+import gsap from 'gsap';
+
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
+
+const gui = new GUI();
+const store = {
+  color: 0x00ff00,
+};
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
@@ -15,10 +23,15 @@ const geometry = new THREE.BufferGeometry();
 const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
 geometry.setAttribute('position', positionsAttribute);
 
+const material = new THREE.MeshBasicMaterial({
+  color: store.color,
+  wireframe: true,
+});
+const BoxGeometry = new THREE.BoxGeometry(1, 1, 1, 3, 3, 3);
 const cube1 = new THREE.Mesh(
-  // new THREE.BoxGeometry(1, 1, 1, 3, 3, 3),
-  geometry,
-  new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+  // geometry,
+  BoxGeometry,
+  material
 );
 cube1.position.set(0, 0, 0);
 scene.add(cube1);
@@ -53,6 +66,26 @@ const tick = () => {
 };
 
 tick();
+
+gui.add(cube1.position, 'x').min(-3).max(3).step(0.01);
+gui.add(cube1.position, 'y').min(-3).max(3).step(0.01);
+gui.add(cube1, 'visible');
+gui.add(cube1.material, 'wireframe');
+
+gui.addColor(store, 'color').onChange(() => {
+  material.color.set(store.color);
+});
+gui.add(
+  {
+    spin() {
+      gsap.to(cube1.rotation, {
+        duration: 1,
+        y: cube1.rotation.y + Math.PI * 2,
+      });
+    },
+  },
+  'spin'
+);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
