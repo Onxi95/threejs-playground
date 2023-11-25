@@ -6,7 +6,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 const cube1 = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 );
 cube1.position.set(0, 0, 0);
 scene.add(cube1);
