@@ -4,8 +4,20 @@ const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
+
+const count = 3;
+const positionsArray = new Float32Array(count * 3 * 3);
+for (let i = 0; i < count * 3 * 3; i++) {
+  positionsArray[i] = (Math.random() - 0.5) * 5;
+}
+
+const geometry = new THREE.BufferGeometry();
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
+geometry.setAttribute('position', positionsAttribute);
+
 const cube1 = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
+  // new THREE.BoxGeometry(1, 1, 1, 3, 3, 3),
+  geometry,
   new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 );
 cube1.position.set(0, 0, 0);
@@ -15,7 +27,7 @@ const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight
 );
-camera.position.set(0, 0, 3);
+camera.position.set(0, 0, 10);
 scene.add(camera);
 
 const orbit = new OrbitControls(camera, canvas);
