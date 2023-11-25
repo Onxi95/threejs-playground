@@ -28,8 +28,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-const clock = new THREE.Clock();
-
 const cursor = {
   x: 0,
   y: 0,
