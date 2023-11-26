@@ -2,6 +2,8 @@ import GUI from 'lil-gui';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+import environmentMapSrc from './textures/environmentMap/2k.hdr';
+
 const textureLoader = new THREE.TextureLoader();
 const doorColorTexture = textureLoader.load('./textures/door/color.jpg');
 const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg');
@@ -18,6 +20,7 @@ const doorRoughnessTexture = textureLoader.load(
 );
 const matcapTexture = textureLoader.load('./textures/matcaps/1.png');
 const gradientTexture = textureLoader.load('./textures/gradients/3.jpg');
+
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 matcapTexture.colorSpace = THREE.SRGBColorSpace;
 
@@ -45,7 +48,7 @@ material.roughness = 0.2;
 material.transmission = 1;
 
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
+rgbeLoader.load(environmentMapSrc, (environmentMap) => {
   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
   scene.background = environmentMap;
   scene.environment = environmentMap;

@@ -4,6 +4,7 @@ import config from './package.json';
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
   base: mode === 'production' ? `/${config.name}` : '/',
+  assetsInclude: ['**/*.hdr'],
   build: {
     rollupOptions: {
       input: [
