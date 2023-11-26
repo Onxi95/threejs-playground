@@ -39,9 +39,10 @@ const pointLight = new THREE.PointLight(0xffffff, 0.5);
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
 
-const material = new THREE.MeshStandardMaterial({});
+const material = new THREE.MeshPhysicalMaterial();
 material.metalness = 0.7;
 material.roughness = 0.2;
+material.transmission = 1;
 
 const rgbeLoader = new RGBELoader();
 rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
@@ -52,6 +53,7 @@ rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
 
 gui.add(material, 'metalness').min(0).max(1).step(0.0001);
 gui.add(material, 'roughness').min(0).max(1).step(0.0001);
+gui.add(material, 'transmission').min(0).max(1).step(0.0001);
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-1.5, 0, 0);
