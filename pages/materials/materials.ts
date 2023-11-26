@@ -1,6 +1,25 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+const textureLoader = new THREE.TextureLoader();
+const doorColorTexture = textureLoader.load('./textures/door/color.jpg');
+const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg');
+const doorAmbientOcclusionTexture = textureLoader.load(
+  './textures/door/ambientOcclusion.jpg'
+);
+const doorHeightTexture = textureLoader.load('./textures/door/height.jpg');
+const doorNormalTexture = textureLoader.load('./textures/door/normal.jpg');
+const doorMetalnessTexture = textureLoader.load(
+  './textures/door/metalness.jpg'
+);
+const doorRoughnessTexture = textureLoader.load(
+  './textures/door/roughness.jpg'
+);
+const matcapTexture = textureLoader.load('./textures/matcaps/1.png');
+const gradientTexture = textureLoader.load('./textures/gradients/3.jpg');
+doorColorTexture.colorSpace = THREE.SRGBColorSpace;
+matcapTexture.colorSpace = THREE.SRGBColorSpace;
+
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
 const store = {
@@ -10,7 +29,9 @@ const store = {
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
-const material = new THREE.MeshBasicMaterial();
+const material = new THREE.MeshNormalMaterial({
+  map: doorColorTexture,
+});
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-1.5, 0, 0);
@@ -47,7 +68,19 @@ const cursor = {
   y: 0,
 };
 
+const clock = new THREE.Clock();
+
 const tick = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  sphere.rotation.y = 0.1 * elapsedTime;
+  plane.rotation.y = 0.1 * elapsedTime;
+  torus.rotation.y = 0.1 * elapsedTime;
+
+  sphere.rotation.x = 0.5 * elapsedTime;
+  plane.rotation.x = 0.5 * elapsedTime;
+  torus.rotation.x = 0.5 * elapsedTime;
+
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
   orbit.update();
