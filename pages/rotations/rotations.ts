@@ -3,21 +3,23 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import GUI from 'lil-gui';
 import gsap from 'gsap';
 
+import checkerBoard1024Texture from './textures/checkerboard-1024x1024.png';
+import minecraftTexture from './textures/minecraft.png';
+
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
 const gui = new GUI();
 const store = {
-  color: 0x00ff00,
+  color: 0xffffff,
 };
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
-const colorTexture = new THREE.TextureLoader().load(
-  './textures/checkerboard-1024x1024.png'
-);
+const colorTexture = new THREE.TextureLoader().load(minecraftTexture);
 colorTexture.colorSpace = THREE.SRGBColorSpace;
 colorTexture.minFilter = THREE.NearestFilter;
+colorTexture.magFilter = THREE.NearestFilter;
 
 const count = 3;
 const positionsArray = new Float32Array(count * 3 * 3);
