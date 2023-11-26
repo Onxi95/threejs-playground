@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => ({
         'index.html',
         'pages/animation-example/index.html',
         'pages/rotations/index.html',
+        'pages/materials/index.html',
       ],
     },
   },
