@@ -13,6 +13,12 @@ const store = {
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
+const colorTexture = new THREE.TextureLoader().load(
+  './textures/checkerboard-1024x1024.png'
+);
+colorTexture.colorSpace = THREE.SRGBColorSpace;
+colorTexture.minFilter = THREE.NearestFilter;
+
 const count = 3;
 const positionsArray = new Float32Array(count * 3 * 3);
 for (let i = 0; i < count * 3 * 3; i++) {
@@ -26,6 +32,7 @@ geometry.setAttribute('position', positionsAttribute);
 const material = new THREE.MeshBasicMaterial({
   color: store.color,
   wireframe: true,
+  map: colorTexture,
 });
 const BoxGeometry = new THREE.BoxGeometry(1, 1, 1, 3, 3, 3);
 const cube1 = new THREE.Mesh(
