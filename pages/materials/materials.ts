@@ -1,6 +1,7 @@
+import GUI from 'lil-gui';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 const textureLoader = new THREE.TextureLoader();
 const doorColorTexture = textureLoader.load('./textures/door/color.jpg');
 const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg');
@@ -22,6 +23,8 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
+const gui = new GUI();
+
 const store = {
   color: 0xffffff,
 };
@@ -29,9 +32,26 @@ const store = {
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
-const material = new THREE.MeshNormalMaterial({
-  map: doorColorTexture,
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 0.5);
+pointLight.position.set(2, 3, 4);
+scene.add(pointLight);
+
+const material = new THREE.MeshStandardMaterial({});
+material.metalness = 0.7;
+material.roughness = 0.2;
+
+const rgbeLoader = new RGBELoader();
+rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
+  environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+  scene.background = environmentMap;
+  scene.environment = environmentMap;
 });
+
+gui.add(material, 'metalness').min(0).max(1).step(0.0001);
+gui.add(material, 'roughness').min(0).max(1).step(0.0001);
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-1.5, 0, 0);
