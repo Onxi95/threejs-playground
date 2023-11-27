@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => ({
         'pages/animation-example/index.html',
         'pages/rotations/index.html',
         'pages/materials/index.html',
+        'pages/text/index.html',
       ],
     },
   },
