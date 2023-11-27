@@ -33,6 +33,22 @@ fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
 
 scene.add(group1);
 
+const geometry = new THREE.SphereGeometry(0.1, 32, 32);
+const material = new THREE.MeshNormalMaterial();
+
+for (let i = 0; i < 100; i++) {
+  const sphere = new THREE.Mesh(geometry, material);
+  sphere.position.x = (Math.random() - 0.5) * 10;
+  sphere.position.y = (Math.random() - 0.5) * 10;
+  sphere.position.z = (Math.random() - 0.5) * 10;
+
+  const scale = (Math.random() - 0.5) * 10;
+
+  sphere.scale.set(scale, scale, scale);
+
+  scene.add(sphere);
+}
+
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight
