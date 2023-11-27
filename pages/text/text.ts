@@ -10,7 +10,7 @@ scene.background = new THREE.Color(0x0f1729);
 
 const fontLoader = new FontLoader();
 fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
-  const textGeometry = new TextGeometry('Hello', {
+  const textGeometry = new TextGeometry('Soweł', {
     font,
     size: 0.5,
     height: 0.2,
