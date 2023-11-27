@@ -5,10 +5,6 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
-const store = {
-  color: 0xffffff,
-};
-
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
@@ -18,26 +14,20 @@ fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
     font,
     size: 0.5,
     height: 0.2,
-    curveSegments: 12,
+    curveSegments: 6,
     bevelEnabled: true,
     bevelThickness: 0.03,
     bevelSize: 0.02,
     bevelOffset: 0,
-    bevelSegments: 5,
+    bevelSegments: 4,
   });
+  textGeometry.computeBoundingBox();
+  textGeometry.center();
   const textMaterial = new THREE.MeshBasicMaterial();
+  // textMaterial.wireframe = true;
   const text = new THREE.Mesh(textGeometry, textMaterial);
   scene.add(text);
 });
-
-const material = new THREE.MeshBasicMaterial({
-  color: store.color,
-  wireframe: true,
-});
-const BoxGeometry = new THREE.BoxGeometry(1, 1, 1, 3, 3, 3);
-const cube1 = new THREE.Mesh(BoxGeometry, material);
-cube1.position.set(0, 0, 0);
-scene.add(cube1);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -48,7 +38,6 @@ scene.add(camera);
 
 const orbit = new OrbitControls(camera, canvas);
 orbit.enableDamping = true;
-camera.lookAt(cube1.position);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
