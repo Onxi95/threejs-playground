@@ -23,7 +23,7 @@ fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
   });
   textGeometry.computeBoundingBox();
   textGeometry.center();
-  const textMaterial = new THREE.MeshBasicMaterial();
+  const textMaterial = new THREE.MeshNormalMaterial();
   // textMaterial.wireframe = true;
   const text = new THREE.Mesh(textGeometry, textMaterial);
   scene.add(text);
