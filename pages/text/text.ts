@@ -8,6 +8,8 @@ const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
+const group1 = new THREE.Group();
+
 const fontLoader = new FontLoader();
 fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
   const textGeometry = new TextGeometry('Sowel', {
@@ -26,8 +28,10 @@ fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
   const textMaterial = new THREE.MeshNormalMaterial();
   // textMaterial.wireframe = true;
   const text = new THREE.Mesh(textGeometry, textMaterial);
-  scene.add(text);
+  group1.add(text);
 });
+
+scene.add(group1);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -46,10 +50,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
+const clock = new THREE.Clock();
+
 const tick = () => {
+  const elapssedTime = clock.getElapsedTime();
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
   orbit.update();
+  group1.rotation.x = elapssedTime * 0.2;
+  group1.rotation.y = elapssedTime * 0.2;
+  group1.rotation.z = elapssedTime * 0.2;
 };
 
 tick();
