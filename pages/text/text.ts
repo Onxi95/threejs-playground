@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { getProjectPublicRoot } from '../../utils';
 
 const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 
@@ -11,25 +12,28 @@ scene.background = new THREE.Color(0x0f1729);
 const group1 = new THREE.Group();
 
 const fontLoader = new FontLoader();
-fontLoader.load('/helvetiker_bold.typeface.json', (font) => {
-  const textGeometry = new TextGeometry('Sowel', {
-    font,
-    size: 0.5,
-    height: 0.2,
-    curveSegments: 6,
-    bevelEnabled: true,
-    bevelThickness: 0.03,
-    bevelSize: 0.02,
-    bevelOffset: 0,
-    bevelSegments: 4,
-  });
-  textGeometry.computeBoundingBox();
-  textGeometry.center();
-  const textMaterial = new THREE.MeshNormalMaterial();
-  // textMaterial.wireframe = true;
-  const text = new THREE.Mesh(textGeometry, textMaterial);
-  group1.add(text);
-});
+fontLoader.load(
+  getProjectPublicRoot('/helvetiker_bold.typeface.json'),
+  (font) => {
+    const textGeometry = new TextGeometry('Sowel', {
+      font,
+      size: 0.5,
+      height: 0.2,
+      curveSegments: 6,
+      bevelEnabled: true,
+      bevelThickness: 0.03,
+      bevelSize: 0.02,
+      bevelOffset: 0,
+      bevelSegments: 4,
+    });
+    textGeometry.computeBoundingBox();
+    textGeometry.center();
+    const textMaterial = new THREE.MeshNormalMaterial();
+    // textMaterial.wireframe = true;
+    const text = new THREE.Mesh(textGeometry, textMaterial);
+    group1.add(text);
+  }
+);
 
 scene.add(group1);
 
