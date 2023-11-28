@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.hdr'],
   build: {
     rollupOptions: {
-      input: ['index.html', ...findHtmlEntries(join(__dirname, 'pages'))],
+      input: ['index.html', ...findHtmlEntries('pages')],
     },
   },
 }));
