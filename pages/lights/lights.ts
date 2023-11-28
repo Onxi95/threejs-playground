@@ -119,6 +119,7 @@ gui
   .step(0.001)
   .name('Rect Light');
 gui.add(spotLight, 'intensity').min(0).max(20).step(0.001).name('Spot Light');
+gui.add(spotLight, 'penumbra').min(0).max(1).step(0.001).name('Spot Penumbra');
 gui.add(pointLight, 'intensity').min(0).max(20).step(0.001).name('Point Light');
 gui
   .add(directionalLight.position, 'x')
