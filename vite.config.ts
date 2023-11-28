@@ -15,20 +15,26 @@ export default defineConfig(({ mode }) => ({
 }));
 
 function findHtmlEntries(directoryPath: string) {
-  const result: string[] = [];
-  const files = readdirSync(directoryPath);
+  const buildPaths: string[] = [];
 
-  files.forEach((file) => {
-    const filePath = join(directoryPath, file);
+  function traverseSubdirectories(subDirectoryPath: string) {
+    const files = readdirSync(subDirectoryPath);
 
-    if (statSync(filePath).isDirectory()) {
-      findHtmlEntries(filePath);
-    } else {
-      if (extname(filePath) === '.html') {
-        result.push(filePath);
-        console.log(filePath);
+    files.forEach((file) => {
+      const filePath = join(subDirectoryPath, file);
+
+      if (statSync(filePath).isDirectory()) {
+        traverseSubdirectories(filePath);
+      } else {
+        if (extname(filePath) === '.html') {
+          buildPaths.push(filePath);
+        }
       }
-    }
-  });
-  return result;
+    });
+  }
+
+  traverseSubdirectories(directoryPath);
+
+  console.log({ buildPaths });
+  return buildPaths;
 }
