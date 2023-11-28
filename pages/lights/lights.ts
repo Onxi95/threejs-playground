@@ -16,9 +16,9 @@ scene.add(directionalLight);
 const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
 scene.add(hemisphereLight);
 
-// const pointLight = new THREE.PointLight(0xffffff, 0.5);
-// pointLight.position.set(2, 3, 4);
-// scene.add(pointLight);
+const pointLight = new THREE.PointLight(0xff9fff, 1.5);
+pointLight.position.set(2, 3, 4);
+scene.add(pointLight);
 
 const material = new THREE.MeshStandardMaterial();
 material.metalness = 0.7;
@@ -27,7 +27,7 @@ material.roughness = 0.2;
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-1.5, 0, 0);
 
-const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
 
 const torus = new THREE.Mesh(
   new THREE.TorusGeometry(0.3, 0.2, 16, 32),
@@ -39,7 +39,7 @@ const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), material);
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.set(0, -1.5, 0);
 
-scene.add(sphere, plane, torus, floor);
+scene.add(sphere, cube, torus, floor);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -64,11 +64,11 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   sphere.rotation.y = 0.1 * elapsedTime;
-  plane.rotation.y = 0.1 * elapsedTime;
+  cube.rotation.y = 0.1 * elapsedTime;
   torus.rotation.y = 0.1 * elapsedTime;
 
   sphere.rotation.x = 0.5 * elapsedTime;
-  plane.rotation.x = 0.5 * elapsedTime;
+  cube.rotation.x = 0.5 * elapsedTime;
   torus.rotation.x = 0.5 * elapsedTime;
 
   renderer.render(scene, camera);
@@ -96,6 +96,12 @@ gui
   .max(3)
   .step(0.001)
   .name('Directional Light');
+gui
+  .add(hemisphereLight, 'intensity')
+  .min(0)
+  .max(3)
+  .step(0.001)
+  .name('Hemisphere Light');
 gui
   .add(directionalLight.position, 'x')
   .min(-5)
