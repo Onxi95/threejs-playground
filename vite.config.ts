@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite';
 import config from './package.json';
+import { readdirSync, statSync } from 'fs';
+import { join, extname } from 'path';
 
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
@@ -7,14 +9,26 @@ export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.hdr'],
   build: {
     rollupOptions: {
-      input: [
-        'index.html',
-        'pages/animation-example/index.html',
-        'pages/rotations/index.html',
-        'pages/materials/index.html',
-        'pages/text/index.html',
-        'pages/lights/index.html',
-      ],
+      input: ['index.html', ...findHtmlEntries(join(__dirname, 'pages'))],
     },
   },
 }));
+
+function findHtmlEntries(directoryPath: string) {
+  const result: string[] = [];
+  const files = readdirSync(directoryPath);
+
+  files.forEach((file) => {
+    const filePath = join(directoryPath, file);
+
+    if (statSync(filePath).isDirectory()) {
+      findHtmlEntries(filePath);
+    } else {
+      if (extname(filePath) === '.html') {
+        result.push(filePath);
+        console.log(filePath);
+      }
+    }
+  });
+  return result;
+}
