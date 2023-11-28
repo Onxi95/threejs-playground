@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import GUI from 'lil-gui';
 
@@ -19,7 +20,8 @@ const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
 scene.add(hemisphereLight);
 
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 3, 1);
-rectAreaLight.position.set(0, -1.5, 0);
+rectAreaLight.position.set(-2, -1, 0);
+rectAreaLight.rotation.set(0, 5, 0);
 scene.add(rectAreaLight);
 
 const pointLight = new THREE.PointLight(0xff9fff, 1.5);
@@ -47,6 +49,9 @@ scene.add(spotLightHelper);
 
 const pointLightHelper = new THREE.PointLightHelper(pointLight);
 scene.add(pointLightHelper);
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight);
+scene.add(rectAreaLightHelper);
 
 const material = new THREE.MeshStandardMaterial();
 material.metalness = 0.7;
