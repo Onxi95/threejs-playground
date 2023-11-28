@@ -19,6 +19,7 @@ const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
 scene.add(hemisphereLight);
 
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 3, 1);
+rectAreaLight.position.set(0, -1.5, 0);
 scene.add(rectAreaLight);
 
 const pointLight = new THREE.PointLight(0xff9fff, 1.5);
@@ -30,7 +31,7 @@ material.metalness = 0.7;
 material.roughness = 0.2;
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
-sphere.position.set(-1.5, 0, 0);
+sphere.position.set(-3, 0, 0);
 
 const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
 
@@ -38,7 +39,7 @@ const torus = new THREE.Mesh(
   new THREE.TorusGeometry(0.3, 0.2, 16, 32),
   material
 );
-torus.position.set(1.5, 0, 0);
+torus.position.set(3, 0, 0);
 
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), material);
 floor.rotation.x = -Math.PI * 0.5;
