@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => ({
         'pages/rotations/index.html',
         'pages/materials/index.html',
         'pages/text/index.html',
+        'pages/lights/index.html',
       ],
     },
   },
