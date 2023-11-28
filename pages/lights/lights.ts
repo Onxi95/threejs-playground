@@ -26,6 +26,10 @@ const pointLight = new THREE.PointLight(0xff9fff, 1.5);
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
 
+const spotLight = new THREE.SpotLight(0x00ff00, 10, 10, Math.PI * 0.1);
+spotLight.position.set(0, 2, 3);
+scene.add(spotLight);
+
 const material = new THREE.MeshStandardMaterial();
 material.metalness = 0.7;
 material.roughness = 0.2;
@@ -114,6 +118,8 @@ gui
   .max(20)
   .step(0.001)
   .name('Rect Light');
+gui.add(spotLight, 'intensity').min(0).max(20).step(0.001).name('Spot Light');
+gui.add(pointLight, 'intensity').min(0).max(20).step(0.001).name('Point Light');
 gui
   .add(directionalLight.position, 'x')
   .min(-5)
