@@ -13,6 +13,8 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
 directionalLight.position.set(4, 6, 4);
 scene.add(directionalLight);
+const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
+scene.add(hemisphereLight);
 
 // const pointLight = new THREE.PointLight(0xffffff, 0.5);
 // pointLight.position.set(2, 3, 4);
