@@ -10,11 +10,16 @@ scene.background = new THREE.Color(0x0f1729);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
+
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
 directionalLight.position.set(4, 6, 4);
 scene.add(directionalLight);
+
 const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
 scene.add(hemisphereLight);
+
+const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 3, 1);
+scene.add(rectAreaLight);
 
 const pointLight = new THREE.PointLight(0xff9fff, 1.5);
 pointLight.position.set(2, 3, 4);
@@ -102,6 +107,12 @@ gui
   .max(3)
   .step(0.001)
   .name('Hemisphere Light');
+gui
+  .add(rectAreaLight, 'intensity')
+  .min(0)
+  .max(20)
+  .step(0.001)
+  .name('Rect Light');
 gui
   .add(directionalLight.position, 'x')
   .min(-5)
