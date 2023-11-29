@@ -61,7 +61,7 @@ const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-3, 0, 0);
 
 const bouncingSphere = new THREE.Mesh(new THREE.SphereGeometry(0.5), material);
-bouncingSphere.position.set(-10, 0, 0);
+bouncingSphere.position.set(0, 0, 0);
 scene.add(bouncingSphere);
 
 const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
@@ -110,7 +110,7 @@ const tick = () => {
 
   bouncingSphere.position.x = Math.cos(elapsedTime) * 6;
   bouncingSphere.position.z = Math.sin(elapsedTime) * 6;
-  bouncingSphere.position.y = Math.abs(Math.sin(elapsedTime * 3));
+  bouncingSphere.position.y = Math.abs(Math.sin(elapsedTime * 3)) - 1;
 
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
