@@ -14,6 +14,13 @@ scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
 directionalLight.position.set(4, 6, 4);
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.near = 0.1;
+directionalLight.shadow.camera.far = 20;
+directionalLight.shadow.camera.top = 8;
+directionalLight.shadow.camera.bottom = -8;
+directionalLight.shadow.camera.left = -15;
+directionalLight.shadow.camera.right = 15;
 scene.add(directionalLight);
 
 const hemisphereLight = new THREE.HemisphereLight(0x0000ff, 0xff0000, 0.9);
@@ -25,6 +32,7 @@ rectAreaLight.rotation.set(0, 5, 0);
 scene.add(rectAreaLight);
 
 const pointLight = new THREE.PointLight(0xff9fff, 1.5);
+pointLight.castShadow = true;
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
 
@@ -44,6 +52,11 @@ const directionalLightHelper = new THREE.DirectionalLightHelper(
 );
 scene.add(directionalLightHelper);
 
+const directionalLightCameraHelper = new THREE.CameraHelper(
+  directionalLight.shadow.camera
+);
+scene.add(directionalLightCameraHelper);
+
 const spotLightHelper = new THREE.SpotLightHelper(spotLight);
 scene.add(spotLightHelper);
 
@@ -62,6 +75,7 @@ sphere.position.set(-3, 0, 0);
 
 const bouncingSphere = new THREE.Mesh(new THREE.SphereGeometry(0.5), material);
 bouncingSphere.position.set(0, 0, 0);
+bouncingSphere.castShadow = true;
 scene.add(bouncingSphere);
 
 const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
@@ -75,6 +89,7 @@ torus.position.set(3, 0, 0);
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(15, 15), material);
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.set(0, -1.5, 0);
+floor.receiveShadow = true;
 
 scene.add(sphere, cube, torus, floor);
 
@@ -91,6 +106,7 @@ orbit.enableDamping = true;
 const renderer = new THREE.WebGLRenderer({
   canvas,
 });
+renderer.shadowMap.enabled = true;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
