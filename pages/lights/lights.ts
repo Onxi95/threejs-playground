@@ -60,6 +60,10 @@ material.roughness = 0.2;
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.set(-3, 0, 0);
 
+const bouncingSphere = new THREE.Mesh(new THREE.SphereGeometry(0.5), material);
+bouncingSphere.position.set(-10, 0, 0);
+scene.add(bouncingSphere);
+
 const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
 
 const torus = new THREE.Mesh(
@@ -68,7 +72,7 @@ const torus = new THREE.Mesh(
 );
 torus.position.set(3, 0, 0);
 
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), material);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(15, 15), material);
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.set(0, -1.5, 0);
 
@@ -103,6 +107,10 @@ const tick = () => {
   sphere.rotation.x = 0.5 * elapsedTime;
   cube.rotation.x = 0.5 * elapsedTime;
   torus.rotation.x = 0.5 * elapsedTime;
+
+  bouncingSphere.position.x = Math.cos(elapsedTime) * 6;
+  bouncingSphere.position.z = Math.sin(elapsedTime) * 6;
+  bouncingSphere.position.y = Math.abs(Math.sin(elapsedTime * 3));
 
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
