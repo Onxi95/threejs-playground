@@ -13,8 +13,8 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
-directionalLight.shadow.mapSize.x = 4096
-directionalLight.shadow.mapSize.y = 4096
+directionalLight.shadow.mapSize.x = 4096;
+directionalLight.shadow.mapSize.y = 4096;
 directionalLight.position.set(4, 6, 4);
 directionalLight.castShadow = true;
 directionalLight.shadow.camera.near = 0.1;
@@ -108,6 +108,7 @@ orbit.enableDamping = true;
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
+  antialias: true,
 });
 renderer.shadowMap.enabled = true;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
