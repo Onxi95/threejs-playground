@@ -13,6 +13,26 @@ const particlesMaterial = new THREE.PointsMaterial({
 });
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
+const backgroundParticles = new THREE.BufferGeometry();
+const backgroundParticlesMaterial = new THREE.PointsMaterial({
+  size: 0.01,
+  color: new THREE.Color(0x8fa5d6),
+});
+
+const count = 5000;
+
+const particlePositions = new Float32Array(count * 3);
+
+for (let i = 0; i < count * 3; i++) {
+  particlePositions[i] = (Math.random() - 0.5) * 10;
+}
+
+backgroundParticles.setAttribute(
+  'position',
+  new THREE.BufferAttribute(particlePositions, 3)
+);
+
+scene.add(new THREE.Points(backgroundParticles, backgroundParticlesMaterial));
 
 const camera = new THREE.PerspectiveCamera(
   75,
