@@ -6,13 +6,10 @@ const canvas = document.querySelector('#three-canvas') as HTMLCanvasElement;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0f1729);
 
-const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.02,
-  color: new THREE.Color(0xffffff),
-});
 const backgroundParticles = new THREE.BufferGeometry();
 const backgroundParticlesMaterial = new THREE.PointsMaterial({
   size: 0.02,
+  blending: THREE.AdditiveBlending,
 });
 backgroundParticlesMaterial.vertexColors = true;
 
